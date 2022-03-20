@@ -5,7 +5,7 @@ const specialCharacters = ['@', '%', '+', '/', "'", '!', '#', '$', '^', '?', ':'
 
 function getPasswordOptions(){
     //convert to string
-    var passwordLength = parseInt(prompt("How long would you like your password to be?"));
+    const passwordLength = parseInt(prompt("How long would you like your password to be?"));
     if (isNaN(passwordLength) === true) {
       alert("Must be a number");
      return
@@ -30,14 +30,54 @@ function getPasswordOptions(){
       return;
     }
   
-    const passwordOptions = {
+     /*const passwordOptions = {
       passLength: passLength,
       hasSpecialChar: hasSpecialChar,
       hasNumericChar: hasNumericChar,
       hasLowerChar: hasLowerChar,
       hasUpperChar: hasUpperChar
     };
-      return passwordOptions;
+      return passwordOptions; */
+
+      
   };
+
+  function getRandomArrayEl(arr) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    const randomEl = arr[randomIndex];
+    return randomEl
+    console.log(randomEl)
+  };
+  function generatePassword() {
+    const options = getPasswordOptions()
+    let result = [];
+    console.log(getPasswordOptions)
+    
+    let possibleChar = [];
+    let guaranteedChar = [];
+      if (options.hasSpecialChar) {
+        possibleChar = possibleChar.concat(specialCharacters);
+        guaranteedChar.push(getRandomArrayEl(specialCharacters))
+      }
+      if (options.hasNumericChar) {
+        possibleChar = possibleChar.concat(numericCharacters);
+        guaranteedChar.push(getRandomArrayEl(numericCharacters))
+      }
+      if (options.hasLowerChar) {
+        possibleChar = possibleChar.concat(lowerCasedCharacters);
+        guaranteedChar.push(getRandomArrayEl(lowerCasedCharacters))
+      }
+      if (options.hasUpperChar) {
+        possibleChar = possibleChar.concat(upperCasedCharacters);
+        guaranteedChar.push(getRandomArrayEl(upperCasedCharacters))
+      }
+      for (let i = 0; i < options.passwordLength; i++) {
+        let possibleCharacter = getRandomArrayEl(possibleChar);
+        result.push(possibleCharacter);
+        console.log(possibleCharacter)
+      }
   
-  
+    return result.join('');
+  };
+ 
+
