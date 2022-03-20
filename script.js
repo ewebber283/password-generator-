@@ -10,7 +10,7 @@ function getPasswordOptions(){
       alert("Must be a number");
      return
     }
-    if (passwordLength < 8 || passLength > 128) {
+    if (passwordLength < 8 || passwordLength > 128) {
       alert("Must be between 8 and 128 characters");
       return
     }
@@ -30,14 +30,14 @@ function getPasswordOptions(){
       return;
     }
   
-     /*const passwordOptions = {
-      passLength: passLength,
+     const passwordOptions = {
+      passwordLength: passwordLength,
       hasSpecialChar: hasSpecialChar,
       hasNumericChar: hasNumericChar,
       hasLowerChar: hasLowerChar,
       hasUpperChar: hasUpperChar
     };
-      return passwordOptions; */
+      return passwordOptions; 
 
       
   };
@@ -46,38 +46,49 @@ function getPasswordOptions(){
     const randomIndex = Math.floor(Math.random() * arr.length);
     const randomEl = arr[randomIndex];
     return randomEl
-    console.log(randomEl)
   };
   function generatePassword() {
     const options = getPasswordOptions()
     let result = [];
-    console.log(getPasswordOptions)
     
-    let possibleChar = [];
+    let possibleCharacter = [];
     let guaranteedChar = [];
       if (options.hasSpecialChar) {
-        possibleChar = possibleChar.concat(specialCharacters);
+        possibleCharacter = possibleCharacter.concat(specialCharacters);
         guaranteedChar.push(getRandomArrayEl(specialCharacters))
       }
       if (options.hasNumericChar) {
-        possibleChar = possibleChar.concat(numericCharacters);
+        possibleCharacter = possibleCharacter.concat(numericCharacters);
         guaranteedChar.push(getRandomArrayEl(numericCharacters))
       }
       if (options.hasLowerChar) {
-        possibleChar = possibleChar.concat(lowerCasedCharacters);
+        possibleCharacter = possibleCharacter.concat(lowerCasedCharacters);
         guaranteedChar.push(getRandomArrayEl(lowerCasedCharacters))
       }
       if (options.hasUpperChar) {
-        possibleChar = possibleChar.concat(upperCasedCharacters);
+        possibleCharacter = possibleCharacter.concat(upperCasedCharacters);
         guaranteedChar.push(getRandomArrayEl(upperCasedCharacters))
       }
       for (let i = 0; i < options.passwordLength; i++) {
-        let possibleCharacter = getRandomArrayEl(possibleChar);
-        result.push(possibleCharacter);
-        console.log(possibleCharacter)
+        let possibleCharacters = getRandomArrayEl(possibleCharacter);
+        result.push(possibleCharacters);
+        console.log(possibleCharacters)
       }
+
+      return result.join('');
+    };
+
+  const generateBtn = document.querySelector("#generate");
+  // Write password to the #password input
+  function writePassword() {
+    const password = generatePassword();
+    const passwordText = document.querySelector("#password");
+    passwordText.value = password;
+  }
+  // Add event listener to generate button
+  generateBtn.addEventListener("click", writePassword);
   
-    return result.join('');
-  };
+   
  
+  
 
